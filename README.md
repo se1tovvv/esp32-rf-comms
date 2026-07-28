@@ -15,11 +15,7 @@ This folder is about executing radio transmission commands via esp32 and Nrf24l0
 
 ## Stage 03 — Climate Telemetry (current flagship)
 
-A wireless climate monitoring system across two independent ESP32 boards. The transmitter reads a set of environmental sensors, packs the readings into a struct, and sends them over the NRF24L01. The receiver unpacks the struct and shows live values on an OLED — no USB tether, each board runs on its own battery.
-
-### A note on honest measurement
-
-An earlier version of this project reported propane and methane in specific units. That was wrong: the MQ-2 is a general gas sensor and can't output calibrated ppm for a specific gas without proper calibration. The old code was effectively scaling a raw value by arbitrary numbers and presenting it as a real reading. This version reports the MQ-2 honestly — as raw gas *presence/level* via `analogRead`, not a fabricated propane/methane figure. Catching and fixing this was the point of rewriting the project rather than trusting the original.
+A wireless climate monitoring system across two independent ESP32 boards. The transmitter reads a set of environmental sensors, packs the readings into a struct, and sends them over the NRF24L01. The receiver unpacks the struct and shows live values on an OLED — no USB tether, each board runs on its own battery. This stage is significantly different from second, as debug with Serial Monitor and SSD1306 was added to ensure smooth user experience.
 
 ### Hardware
 - 2× ESP32 (38-pin) — one transmitter, one receiver
@@ -91,12 +87,6 @@ An earlier version of this project reported propane and methane in specific unit
 | GND | GND |
 | SDA | GPIO 4 |
 | SCL | GPIO 5 |
-
----
-
-## Why this project exists
-
-This is the communication foundation for a larger goal: an autonomous drone that receives commands wirelessly. The radio, struct-packing, and bidirectional protocol skills built here carry directly into that system — this is where the drone learns to listen.
 
 ## Tech
 `C++` · `ESP32` · `NRF24L01` · `SPI` · `SSD1306 OLED` · `PlatformIO`
